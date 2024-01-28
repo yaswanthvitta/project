@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "yaswanth",
+    "database": "wd-capstone-dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "yaswanth",
+    "database": "wd-capstone-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "yaswanth",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
