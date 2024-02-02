@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Create New Course</h1>
+    <div class="linkback">
+    <a class="link" href="/home">Home</a>
+    <p class="link"> Create New Course</p>
+    </div>
+    <div class="back">
+    <h1 class="heading">Create New Course</h1>
     <form action="/course" method="post">
         <div>
-        <label for="coursename">What is the name of the course?</label>
-        <input name="coursename" type="text"/>
+        <label class="label" for="coursename">What is the name of the course?</label>
+        <input class="input" name="coursename" type="text"/>
     </div>
-        <button type="submit">Create</button>
+        <button class="button" type="submit">Create</button>
     </form>
+   </div>
 </body>
 </html>

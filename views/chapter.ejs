@@ -4,16 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Create Chapter</h1>
+    <div class="linkback">
+    <a href="/home" class="link">Home</a>
+    <form action="/course" method="post" >
+        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <button class="link" type="submit"><%= coursename %> </button>
+    </form>
+    <p class="link">Create chapter</p>
+    </div>
+    <div class="back">
+    <h1 class="heading">Create Chapter</h1>
     <form action="/chapters" method="post">
         <input name="coursename" type="hidden" value="<%= coursename %>" />
-        <label for="chaptername">What is the name of chapter?</label>
-        <input type="text" name="chaptername"/>
-        <label for="description">Description</label>
-        <input type="text" name="description"/> 
-        <button type="submit">Create</button>
+        <label class="label" for="chaptername">What is the name of chapter?</label>
+        <br>
+        <input class="input" type="text" name="chaptername"/>
+        <br>
+        <label class="label" for="description">Description</label>
+        <br>
+        <input class="input" type="text" name="description"/> 
+        <br>
+        <button class="button" type="submit">Create</button>
     </form>
+</div>
 </body>
 </html>

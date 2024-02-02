@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-    <h1><%= coursename %></h1>
+    <div class="linkback">
+    <a class="link" href="/home" >Home</a>
+    <p class="link"><%= coursename %></p>
+   </div>
+   <div class="back">
+    <h1 class="heading"><%= coursename %></h1>
     <hl/>
-    <p>Chapters</p>
+    <p class="list">Chapters</p>
+    <% if (chapters.length==0) { %>
+        <p class="list">No pages yet created </p>
+    <% } else { %>
+        <ul>
+        <% for(let i=0;i< chapters.length; i++) { %>
+            <li class="list"><%= chapters[i].chapter %></li>
+        <% } %>    
+        </ul>
+    <% } %>
     <form action="/chapter" method="post" >
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
-        <button type="submit">Create a new chapter</button>
+        <button class="button" type="submit">New chapter</button>
     </form>
+</div>
 </body>
 </html>

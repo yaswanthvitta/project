@@ -3,26 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/style.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <h1>New Page</h1>
+    <div class="linkback">
+    <a href="/home" class="link">Home</a>
+    <form action="/course" method="post" >
+        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <button class="link" type="submit"><%= coursename %> </button>
+    </form>
+    <p class="link">Create New page</p> 
+    </div>
+    <div class="back">
+    <h1 class="heading">New Page</h1>
     <form action="/show" method="post">
         <input type="hidden" name="coursename" value="<%= coursename %>"/>
-        <label for="pagetitle">Title</label>
-        <input type="text" name="pagetitle"/>
+        <input type="hidden" name="chaptername" value="<%= chaptername %>"/>
+        <label for="pagetitle" class="label">Title :</label>
         <div>
-        <p>Chapter: </p>
-        <select name="Chapters" id="chapters">
+        <input class="input" type="text" name="pagetitle"/>
+    </div>
+        <div>
+        <p class="label">Chapter : </p>
+        <select name="chapters" id="chapters" required>
+            <option value="">None</option>
             <% for(var i=0;i< chapters.length;i++) { %>
             <option value="<%= chapters[i].chapter %>"><%= chapters[i].chapter %></option>
             <% } %>
           </select>
         </div>
-        <p>Content</p>
-        <textarea name="content"></textarea>
+        <p class="label">Content :</p>
+        <textarea contenteditable="true" class="content" name="content"></textarea>
         <br>
-        <button type="submit">create</button>
+        <button class="button" type="submit">create</button>
     </form>
+    </div>
 </body>
 </html>

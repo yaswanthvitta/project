@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/style.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <h1><%= chaptername %></h1>
-    <hl/>
-    <p>Pages</p>
+    <div class="linkback">
+    <a href="/home" class="link">Home</a>
+    <form action="/course" method="post" >
+        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <button type="submit" class="link"><%= coursename %> </button>
+    </form>
+    <p class="link"><%= chaptername %></p>  
+    </div>
+    <div class="back">
+    <h1 class="heading"><%= chaptername %></h1>
+    <p class="list">Pages</p>
+    <% if (pagelist.length==0) { %>
+        <p class="list">No pages yet created </p>
+    <% } else { %>
+        <ul>
+        <% for(let i=0;i< pagelist.length; i++) { %>
+            <li class="list"><%= pagelist[i].pagename %></li>
+        <% } %>    
+    
+        </ul>
+    <% } %>
     <form action="/page" method="post" >
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
-        <button type="submit">Create a new pages</button>
+        <input type="hidden" type="text" name="chaptername" value="<%= chaptername %>" />
+        <button class="button" type="submit">Create pages</button>
     </form>
+</div>
 </body>
 </html>
