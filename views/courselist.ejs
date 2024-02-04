@@ -1,5 +1,7 @@
 <p class="head">Enrolled Courses</p>
 
+<% if(enrolled.length >0) { %>
+
 <div class="" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-direction: row;">
     <% for(let i=0;i< enrolled.length; i++) { %>
     <form action="/viewdetails" method="post">
@@ -30,10 +32,16 @@
    
       <% } %>
 </div>
+<% } else { %>
+    <p class="author" style="margin: 30px;">No courses Enrolled</p>
+<% } %>
 
 <hr>
-<h1 class="head">Available courses</h1>
 
+
+
+<h1 class="head">Available courses</h1>
+<% if(courses.length > 0) { %> 
 <div class="" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-direction: row;">
     <% for(let i=0;i< courses.length; i++) { %>
     <form action="/viewdetails" method="post">
@@ -64,3 +72,6 @@
    
       <% } %>
 </div>
+<% } else { %>
+<p class="author" style="margin: 30px;">No courses created</p>
+<% } %>

@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static getenrolled(userid){
-      return this.findAll({where:{userid}})
+      return this.findAll({where:{userid},
+        attributes: ['coursename','author'],
+        group:['coursename','author']})
     }
 
     static getnumber(){

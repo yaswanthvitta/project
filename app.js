@@ -157,8 +157,8 @@ app.post("/chapters", async (request,response)=>{
 app.post("/chapters1", async (request,response)=>{
     const cname=request.body.coursename;
     const chname=request.body.chaptername;
-    
     const pagelist =await Pages.getpages(cname,chname);
+    console.log(pagelist)
     response.render("createpage",{coursename:cname,chaptername:chname,pagelist:pagelist,csrfToken: request.csrfToken()})
 })
 

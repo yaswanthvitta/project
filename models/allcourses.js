@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model, where
+  Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class AllCourses extends Model {
@@ -18,12 +18,14 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static getcourses(){
-      return this.findAll();
+      return this.findAll({
+        attributes: ['coursename','author'],
+        group:['coursename','author'],});
     }
 
     static getdes(coursename,chapter){
       return this.findOne({where:{coursename,chapter}})
-    }
+    }
 
 
   }
@@ -31,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     coursename: DataTypes.STRING,
     author: DataTypes.STRING,
     chapter: DataTypes.STRING,
-    chapterdescription: DataTypes.STRING
+    chapterdescription: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'AllCourses',
