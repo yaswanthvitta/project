@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./css/style.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <script src="https://kit.fontawesome.com/5bf97c92e0.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+
+    <script>
+    </script>
+
+</head>
+<body>
+    <div class="linkback">
+    <a class="link" href="/home" >Home</a>
+    <p class="link"><%= coursename %></p>
+   </div>
+   <div class="back">
+
+    <h1 class="heading" style="margin-top: 20px;"><%= coursename %></h1>
+    
+    <% if (enrollstatus.length ==0) { %>
+
+    <div class="grid grid-cols-8">
+        <form action="/enrolling" method="post">
+        <input type="hidden" name="coursename" value="<%= coursename %>" />
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
+        <div class="col-start-1 col-span-2 h-52  cards ">
+            <h1 class="head"><%= coursename %></h1>
+            <div class="" style="display:flex; flex-direction: row; margin-left: 20px;">
+             <div style="width: 170px;">
+             <h1 class="author" ><%= chapters[0].author %></h1>
+             </div>
+             <div style="display:flex; flex-direction: row;">
+             <p class="icon"><i class="fa-solid fa-user-graduate"></i></p>
+             <p class="number">2000</p>
+         </div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: start;">
+            <div style="display:flex; flex-direction: row; justify-content: center; height: 40px;">
+             <button type="submit" class="cardbutton">Enroll</button>
+             </div>
+         </div>
+            </div>
+        </form>
+    </div>
+
+
+    
+    <hl/>
+    <p class="head">Chapters</p>
+    <% if (chapters.length==0) { %>
+        <p class="list">No chapters yet created </p>
+    <% } else { %>
+        <ul>
+        <% for(let i=0;i< chapters.length; i++) { %>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 300px;">
+            <p style="font-size: 17px;margin-right: 50px;margin: 20px;border-color: gainsboro;"><%= chapters[i].chapter %><p>
+            </div>
+             <p style="font-size: 17px;margin-right: 50px;margin: 20px;border-color: gainsboro;"><i class="fa-solid fa-lock"></i></p>   
+        </div>
+        <% } %>    
+        </ul>
+    <% } 
+    }
+     else { %>
+
+        <p class="head" style="margin: 20px;">Chapters</p>
+    <% if (chapters.length==0) { %>
+        <p class="list">No chapters yet created </p>
+    <% } else { %>
+        <ul>
+        <% for(let i=0;i< chapters.length; i++) { %>
+            <form action="/pageslist" method="post">
+                <input type="hidden" name="coursename" value="<%= chapters[i].coursename %>" />
+                <input type="hidden" name="chapter" value="<%= chapters[i].chapter %>" />
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 300px;">
+            <button style="font-size: 17px;margin-right: 50px;margin: 20px;border-color: gainsboro; border-style: solid;"><%= chapters[i].chapter %><button>
+            </div>
+        </div>
+    </form>
+        <% } %>    
+        </ul>
+    <% } } %>
+
+  
+
+</div>
+
+
+</body>
+</html>

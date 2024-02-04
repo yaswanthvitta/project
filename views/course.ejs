@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <meta name="csrf-token" content="<%= csrfToken %>">
     <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -14,10 +15,12 @@
     <div class="back">
     <h1 class="heading">Create New Course</h1>
     <form action="/course" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <div>
         <label class="label" for="coursename">What is the name of the course?</label>
+        <br>
         <input class="input" name="coursename" type="text"/>
-    </div>
+        </div>
         <button class="button" type="submit">Create</button>
     </form>
    </div>

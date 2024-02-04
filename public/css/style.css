@@ -78,3 +78,62 @@
     font-size: 16px;
     list-style-type: circle;
 }
+
+.cards{
+    background-color: rgba(128, 128, 128, 0.214);
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding-left: 25px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.296);
+    width: 350px;
+    margin-right: 200px;
+    margin: 50px;
+}
+
+.head{
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.author{
+    color: #000;
+    font-size: 17px;
+    font-style: italic;
+    margin-bottom: 25px;
+}
+
+.icon{
+    color: black;
+    font-size: 17px;
+    margin-left: 20px;
+    margin-bottom: 25px;
+}
+
+.number{
+    color: #000;
+    font-size: 17px;
+    margin-left: 15px;
+    font-style: italic;
+    margin-bottom: 25px;
+}
+
+.cardbutton{
+    color: #000;
+    background-color: rgba(128, 128, 128, 0.37);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+.cardbutton:hover{
+    border-color:  rgba(16, 15, 15, 0.43);
+    border-style: solid;
+    border-width: 2px;
+}

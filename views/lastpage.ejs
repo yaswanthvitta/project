@@ -18,19 +18,21 @@
     <form action="/chapters1" method="post" >
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
-        <input type="hidden" type="text" name="chaptername" value="<%= chaptername %>" />
-        <button class="link" type="submit"><%= chaptername %> </button>
+        <input type="hidden" type="text" name="chapter" value="<%= chapter %>" />
+        <button class="link" type="submit"><%= chapter %> </button>
     </form>
-    <p class="link"><%= pagename %></p>
+    <p class="link"><%= page.pagename %></p>
     </div>
     <div class="back">
-    <form action="/page" method="post">
+    <form action="/pageview" method="post">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
     <input type="hidden" value="<%= coursename %>" name="coursename" />
-    <input type="hidden" type="text" name="chaptername" value="<%= chaptername %>" />
-    <h1 class="heading"><%= pagename %></h1>
-    <p class="contents"><%= page %></p>
-    <button class="button">Create Page</button>
+    <input type="hidden" type="text" name="chapter" value="<%= chapter %>" />
+    <h1 class="heading"><%= page.pagename %></h1>
+    <p class="contents"><%= page.content %></p>
+    <div style="display: flex; flex-direction: row;">
+    <button class="button">Mark as Complete</button>
+    </div>
     </form>
     </div>
 </body>

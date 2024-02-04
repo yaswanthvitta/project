@@ -3,7 +3,7 @@ const {
   Model, where
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class AllCourses extends Model {
+  class Enroll extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,28 +13,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    static getchapters(coursename){
-      return this.findAll({where:{coursename}});
+    static getenrollstatus(userid,coursename){
+      return this.findAll({where:{userid,coursename}});
     }
 
-    static getcourses(){
-      return this.findAll();
+    static getEnrolled(userid){
+      return this.findAll({where:{userid}})
     }
-
-    static getdes(coursename,chapter){
-      return this.findOne({where:{coursename,chapter}})
-    }
-
 
   }
-  AllCourses.init({
+  Enroll.init({
+    userid: DataTypes.INTEGER,
     coursename: DataTypes.STRING,
-    author: DataTypes.STRING,
-    chapter: DataTypes.STRING,
-    chapterdescription: DataTypes.STRING
+    enroll: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'AllCourses',
+    modelName: 'Enroll',
   });
-  return AllCourses;
+  return Enroll;
 };

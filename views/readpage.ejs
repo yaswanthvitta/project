@@ -15,27 +15,29 @@
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
         <button type="submit" class="link"><%= coursename %> </button>
     </form>
-    <p class="link"><%= chaptername %></p>  
+    <p class="link"><%= chapter %></p>  
     </div>
     <div class="back">
-    <h1 class="heading"><%= chaptername %></h1>
+    <h1 class="heading"><%= chapter %></h1>
+    <p><%= des %></p>
+    <hr>
     <p class="list">Pages</p>
     <% if (pagelist.length==0) { %>
         <p class="list">No pages yet created </p>
     <% } else { %>
         <ul>
         <% for(let i=0;i< pagelist.length; i++) { %>
-            <li class="list"><%= pagelist[i].pagename %></li>
+            <form action="/pageview" method="post">
+                <input type="hidden" name="coursename" value="<%= coursename %>" />
+                <input type="hidden" name="chapter" value="<%= chapter %>" />
+                <input type="hidden" name="page" value="<%= pagelist[i].pagename %>" />
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
+            <button type="submit"><%= pagelist[i].pagename %></button>
+        </form>
         <% } %>    
     
         </ul>
     <% } %>
-    <form action="/page" method="post" >
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
-        <input type="hidden" type="text" name="chaptername" value="<%= chaptername %>" />
-        <button class="button" type="submit">Create pages</button>
-    </form>
 </div>
 </body>
 </html>

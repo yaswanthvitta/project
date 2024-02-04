@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <meta name="csrf-token" content="<%= csrfToken %>">
     <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -16,7 +17,7 @@
     <hl/>
     <p class="list">Chapters</p>
     <% if (chapters.length==0) { %>
-        <p class="list">No pages yet created </p>
+        <p class="list">No chapters yet created </p>
     <% } else { %>
         <ul>
         <% for(let i=0;i< chapters.length; i++) { %>
@@ -25,6 +26,7 @@
         </ul>
     <% } %>
     <form action="/chapter" method="post" >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
         <button class="button" type="submit">New chapter</button>
     </form>

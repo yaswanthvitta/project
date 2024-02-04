@@ -3,10 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="./css/style.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <script src="https://kit.fontawesome.com/5bf97c92e0.js" crossorigin="anonymous"></script>
     <title>Document</title>
+
+    <script>
+
+        var token =document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+        
+        function enrolling(p) {
+            var o =p.getAttribute("data")
+            alert("enrolling to course: " +o)
+            fetch('/enroll',{
+                method: "post",
+                headers: {"Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "_csrf":token,
+                    coursename:o 
+                }),
+            })
+            .then((res) =>{
+                if(res.ok){
+                window.location.reload();
+                }
+                else{
+                    alert("Already register")
+                    window.location.reload();
+                }
+            })
+            .catch((err) =>{ 
+                alert("Already register")
+            })
+            }  
+
+            function viewdetails(p) {
+            var o =p.getAttribute("data")
+            fetch('/viewdetails',{
+                method: "post",
+                headers: {"Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "_csrf":token,
+                    coursename:o 
+                }),
+            })
+            .then((res) =>{
+                if(res.ok){
+                 
+                }
+            })
+            .catch((err) =>{ 
+                console.log(err)
+            })
+            }  
+
+            
+    </script>
 </head>
 <body>
-    <%- include('createcourse.ejs') %>
+    <%- include('createcourse.ejs') %> 
     <a href="/signout">Signout</a>
+    <%- include('courselist.ejs') %>
 </body>
 </html>
