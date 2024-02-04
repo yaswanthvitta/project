@@ -10,18 +10,21 @@
 <body>
     <div class="linkback">
     <a href="/home" class="link">Home</a>
-    <form action="/course" method="post" >
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
-        <button class="link" type="submit"><%= coursename %> </button>
-    </form>
-    <form action="/chapters1" method="post" >
+    <form action="/viewdetails" method="post" >
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
         <input type="hidden" type="text" name="chapter" value="<%= chapter %>" />
+        <input type="hidden" type="text" name="author" value="<%= author %>" />
+        <button class="link" type="submit"><%= coursename %> </button>
+    </form>
+    <form action="/pageslist" method="post" >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <input type="hidden" type="text" name="chapter" value="<%= chapter %>" />
+        <input type="hidden" type="text" name="author" value="<%= author %>" />
         <button class="link" type="submit"><%= chapter %> </button>
     </form>
-    <p class="link"><%= page.pagename %></p>
+    <p class="link1"><%= page.pagename %></p>
     </div>
     <div class="back">
     <form action="/pageview" method="post">

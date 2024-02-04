@@ -16,7 +16,7 @@
 <body>
     <div class="linkback">
     <a class="link" href="/home" >Home</a>
-    <p class="link"><%= coursename %></p>
+    <p class="link1"><%= coursename %></p>
    </div>
    <div class="back">
 
@@ -27,16 +27,17 @@
     <div class="grid grid-cols-8">
         <form action="/enrolling" method="post">
         <input type="hidden" name="coursename" value="<%= coursename %>" />
+        <input type="hidden" name="author" value="<%= author %>" />
         <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
         <div class="col-start-1 col-span-2 h-52  cards ">
             <h1 class="head"><%= coursename %></h1>
             <div class="" style="display:flex; flex-direction: row; margin-left: 20px;">
              <div style="width: 170px;">
-             <h1 class="author" ><%= chapters[0].author %></h1>
+             <h1 class="author" ><%= author %></h1>
              </div>
              <div style="display:flex; flex-direction: row;">
              <p class="icon"><i class="fa-solid fa-user-graduate"></i></p>
-             <p class="number">2000</p>
+             <p class="number"><%= number[coursename+author] %></p>
          </div>
             </div>
             <div style="display: flex; flex-direction: column; justify-content: start;">
@@ -78,6 +79,7 @@
             <form action="/pageslist" method="post">
                 <input type="hidden" name="coursename" value="<%= chapters[i].coursename %>" />
                 <input type="hidden" name="chapter" value="<%= chapters[i].chapter %>" />
+                <input type="hidden" name="author" value="<%= chapters[i].author %>" />
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
             <div style="display: flex; flex-direction: row;">
                 <div style="width: 300px;">

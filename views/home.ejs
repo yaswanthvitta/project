@@ -17,13 +17,15 @@
         
         function enrolling(p) {
             var o =p.getAttribute("data")
+            var t=p.getAttribute("data1")
             alert("enrolling to course: " +o)
             fetch('/enroll',{
                 method: "post",
                 headers: {"Content-Type": "application/json" },
                 body: JSON.stringify({
                     "_csrf":token,
-                    coursename:o 
+                    coursename:o ,
+                    author:t
                 }),
             })
             .then((res) =>{
@@ -64,8 +66,16 @@
     </script>
 </head>
 <body>
+    <div style="display: flex; flex-direction: row;">
+    <h1 class="heading">Welcome <%= user %></h1>
+    <div style="display: flex; flex-direction: row; justify-content: end; width: 1200px; margin: 2px;">
+    <a href="/signout" class="author" style="background-color:rgba(128, 128, 128, 0.344); padding-left: 2px; padding-right: 2px; width: 100px; text-align: center; border-radius: 5px;">Signout</a>
+    </div>
+    </div>
+    <% if(role=="educator"){ %>
     <%- include('createcourse.ejs') %> 
-    <a href="/signout">Signout</a>
+    <% } %>
+    
     <%- include('courselist.ejs') %>
 </body>
 </html>

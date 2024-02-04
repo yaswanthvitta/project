@@ -10,18 +10,19 @@
 <body>
     <div class="linkback">
     <a href="/home" class="link">Home</a>
-    <form action="/course" method="post" >
+    <form action="/viewdetails" method="post" >
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <input type="hidden" type="text" name="author" value="<%= author %>" />
         <button type="submit" class="link"><%= coursename %> </button>
     </form>
-    <p class="link"><%= chapter %></p>  
+    <p class="link1"><%= chapter %></p>  
     </div>
     <div class="back">
     <h1 class="heading"><%= chapter %></h1>
-    <p><%= des %></p>
+    <p class="author"><%= des %></p>
     <hr>
-    <p class="list">Pages</p>
+    <p class="heading">Pages</p>
     <% if (pagelist.length==0) { %>
         <p class="list">No pages yet created </p>
     <% } else { %>
@@ -30,9 +31,10 @@
             <form action="/pageview" method="post">
                 <input type="hidden" name="coursename" value="<%= coursename %>" />
                 <input type="hidden" name="chapter" value="<%= chapter %>" />
+                <input type="hidden" type="text" name="author" value="<%= author %>" />
                 <input type="hidden" name="page" value="<%= pagelist[i].pagename %>" />
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
-            <button type="submit"><%= pagelist[i].pagename %></button>
+            <button class="button p-3" style="width: 500px;height: 40px;background-color: rgba(128, 128, 128, 0.141);text-align: start;border-color: white;font-size: 15px;" type="submit"><%= pagelist[i].pagename %></button>
         </form>
         <% } %>    
     

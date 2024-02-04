@@ -1,27 +1,28 @@
-<p>Enrolled Courses</p>
+<p class="head">Enrolled Courses</p>
 
 <div class="" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-direction: row;">
     <% for(let i=0;i< enrolled.length; i++) { %>
     <form action="/viewdetails" method="post">
     <input type="hidden" name="coursename" value="<%= enrolled[i].coursename %>" />
+    <input type="hidden" name="author" value="<%= enrolled[i].author %>" />
     <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
     <div class="cards ">
         <h1 class="head"><%= enrolled[i].coursename %></h1>
         <div class="" style="display:flex; flex-direction: row; margin-left: 20px;">
          <div style="width: 170px;">
-         <h1 class="author" ><%= courses[i].author %></h1>
+         <h1 class="author" ><%= enrolled[i].author %></h1>
          </div>
          <div style="display:flex; flex-direction: row;">
          <p class="icon"><i class="fa-solid fa-user-graduate"></i></p>
-         <p class="number">2000</p>
+         <p class="number"><%= number[enrolled[i].coursename+enrolled[i].author] %></p>
      </div>
         </div>
         <div style="display: flex; margin-right: 30px;">
         <div  style="display:flex; flex-direction: row; justify-content: center; width: 400px; height: 40pxpx;">
-         <button class="cardbutton" style="justify-content: center; background-color:  rgba(128, 128, 128, 0.37);" type="submit">View course</button>
+         <button class="cardbutton" style="justify-content: center; background-color:  rgba(128, 128, 128, 0.37);" type="submit">Continue</button>
         </div>
         <div style="display:flex; flex-direction: row; justify-content: center;  width: 400px; height: 40px;">
-         <button class="cardbutton"  onclick="enrolling(this)" data="<%= courses[i].coursename %>">Enroll</button>
+         <button class="cardbutton"  onclick="enrolling(this)" data="<%= courses[i].coursename %>">Completed 0%</button>
          </div>
      </div>
         </div>
@@ -31,10 +32,13 @@
 </div>
 
 <hr>
+<h1 class="head">Available courses</h1>
+
 <div class="" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-direction: row;">
     <% for(let i=0;i< courses.length; i++) { %>
     <form action="/viewdetails" method="post">
     <input type="hidden" name="coursename" value="<%= courses[i].coursename %>" />
+    <input type="hidden" name="author" value="<%= courses[i].author %>" />
     <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
     <div class="cards ">
         <h1 class="head"><%= courses[i].coursename %></h1>
@@ -44,7 +48,7 @@
          </div>
          <div style="display:flex; flex-direction: row;">
          <p class="icon"><i class="fa-solid fa-user-graduate"></i></p>
-         <p class="number">2000</p>
+         <p class="number"><%= number[courses[i].coursename+courses[i].author] %></p>
      </div>
         </div>
         <div style="display: flex; margin-right: 30px;">
@@ -52,7 +56,7 @@
          <button class="cardbutton" style="justify-content: center; background-color:  rgba(128, 128, 128, 0.37);" type="submit">View course</button>
         </div>
         <div style="display:flex; flex-direction: row; justify-content: center;  width: 400px; height: 40px;">
-         <button class="cardbutton"  onclick="enrolling(this)" data="<%= courses[i].coursename %>">Enroll</button>
+         <button class="cardbutton"  onclick="enrolling(this)" data="<%= courses[i].coursename %>"  data1="<%= courses[i].author %>">Enroll</button>
          </div>
      </div>
         </div>

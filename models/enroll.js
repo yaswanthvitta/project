@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model, where
+  Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Enroll extends Model {
@@ -13,19 +13,27 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    static getenrollstatus(userid,coursename){
-      return this.findAll({where:{userid,coursename}});
+    static getenrollstatus(userid,coursename,author){
+      return this.findAll({where:{userid,coursename,author}});
     }
 
-    static getEnrolled(userid){
+    static getenrolled(userid){
       return this.findAll({where:{userid}})
     }
+
+    static getnumber(){
+      return this.findAll({
+        attributes: ['coursename', [sequelize.fn('COUNT', sequelize.col('userid')), 'studentcount'],'author'],
+        group: ['coursename','author'],
+    })
+  }
 
   }
   Enroll.init({
     userid: DataTypes.INTEGER,
     coursename: DataTypes.STRING,
-    enroll: DataTypes.STRING
+    enroll: DataTypes.STRING,
+    author: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Enroll',

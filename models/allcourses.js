@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    static getchapters(coursename){
-      return this.findAll({where:{coursename}});
+    static getchapters(coursename,author){
+      return this.findAll({where:{coursename,author}});
     }
 
     static getcourses(){

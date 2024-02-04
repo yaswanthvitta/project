@@ -13,6 +13,25 @@
     cursor: pointer;
     font-style: italic;
 }
+
+body{
+    padding: 30px;
+}
+
+.link1{
+    color: black;
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 17px;
+    font-family: 'Roboto';
+    margin: 2px;
+    margin-right: 8px;
+    padding: 5px;
+    font-style: italic;
+}
+
 .linkback{
     display: flex;
     flex-direction: row;
@@ -133,6 +152,22 @@
 }
 
 .cardbutton:hover{
+    border-color:  rgba(16, 15, 15, 0.43);
+    border-style: solid;
+    border-width: 2px;
+}
+
+.cardbutton1{
+    color: #000;
+    background-color: rgba(128, 128, 128, 0.37);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+.cardbutton1:hover{
     border-color:  rgba(16, 15, 15, 0.43);
     border-style: solid;
     border-width: 2px;
