@@ -69,8 +69,9 @@
     <div style="display: flex; flex-direction: row;">
     <h1 class="heading">Welcome <%= user %></h1>
     <div style="display: flex; flex-direction: row; justify-content: end; width: 1200px; margin: 2px;">
-    <a href="/signout" class="author" style="background-color:rgba(128, 128, 128, 0.344); padding-left: 2px; padding-right: 2px; width: 100px; text-align: center; border-radius: 5px;">Signout</a>
-    </div>
+    <a href="/signout" class="author" style="background-color:rgba(128, 128, 128, 0.344); padding-left: 2px; padding-right: 2px; width: 100px; text-align: center; border-radius: 5px; margin-right: 10px;">Signout</a>
+    <a href="/changepasswordpage" class="author" style="background-color:rgba(128, 128, 128, 0.344); padding-left: 2px; padding-right: 2px; width: 150px; text-align: center; border-radius: 5px;">Change Password</a>    
+</div>
     </div>
     <% if(role=="educator"){ %>
     <%- include('createcourse.ejs') %> 

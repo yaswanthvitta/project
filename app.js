@@ -97,7 +97,6 @@ app.get('/', function (request, response) {
 app.get('/home', async(request, response)=> {
     const courses =await AllCourses.getcourses();
     const number =await Enroll.getnumber();
-    console.log("pppppppppppppppppppppppppppppppppppppppppppppppppppp")
     console.log(request.user.role)
     console.log(number)
     const map={}
@@ -318,6 +317,31 @@ app.post(
     }
     console.log(page)
     
+  })
+
+  app.get("/changepasswordpage",async(request,response)=>{
+    response.render("changepassword",{csrfToken: request.csrfToken()})
+  })
+
+  app.post("/changepassword",async(request,response)=>{
+    const check = await bcrypt.compare(request.body.currentpassword,request.user.password);
+    if(check){
+      if(request.body.newpassword==request.body.comfirmpassword){
+       const hashed=await bcrypt.hash(request.body.newpassword,saltRounds);
+       await Members.update({password:hashed},{where:{id:request.user.id}})
+       console.log("ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp")
+    const courses =await AllCourses.getcourses();
+    const number =await Enroll.getnumber();
+    console.log(request.user.role)
+    const map={}
+    for(let i=0;i<number.length;i++){
+      map[number[i].dataValues.coursename+number[i].dataValues.author]=number[i].dataValues.studentcount
+    }
+    console.log(map)
+    const enrolled=await Enroll.getenrolled(request.user.id);
+    response.render("home",{courses:courses,number:map,enrolled:enrolled,user:request.user.firstName,role:request.user.role,csrfToken: request.csrfToken()})
+      }
+    }
   })
 
 module.exports=app;
