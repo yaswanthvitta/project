@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-const { AllCourses, Pages, User,Enroll } = require("./models");
+const { AllCourses, Pages, Members,Enroll } = require("./models");
 var csrf = require("tiny-csrf");
 var cookieParser = require("cookie-parser");
 app.use(cookieParser("shh! some secret string"));
@@ -73,7 +73,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findByPk(id)
+  Members.findByPk(id)
     .then((user) => {
       done(null, user);
     })
@@ -198,7 +198,7 @@ app.get("/signin",async(request,response)=>{
 app.post("/users",async(request,response)=>{
     const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
      try{
-        const user = await User.create({
+        const user = await Members.create({
             firstName:request.body.firstName,
             lastName:request.body.lastName,
             role:request.body.role,
