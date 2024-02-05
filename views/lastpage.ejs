@@ -27,14 +27,20 @@
     <p class="link1"><%= page.pagename %></p>
     </div>
     <div class="back">
-    <form action="/pageview" method="post">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-    <input type="hidden" value="<%= coursename %>" name="coursename" />
-    <input type="hidden" type="text" name="chapter" value="<%= chapter %>" />
     <h1 class="heading"><%= page.pagename %></h1>
     <p class="contents"><%= page.content %></p>
     <div style="display: flex; flex-direction: row;">
-    <button class="button" style="width: 150px; margin-right: 10px; height: 30px;">Mark as Complete</button>
+        <form action="/mark" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <input type="hidden" value="<%= coursename %>" name="coursename" />
+            <input type="hidden" type="text" name="chapter" value="<%= chapter %>" />
+            <input type="hidden" type="text" name="page" value="<%= page.pagename %>" />
+            <input type="hidden" type="text" name="author" value="<%= author %>" />
+    <% if (status.length==0){ %>
+    <button class="button" style="width: 150px; margin-right: 10px; height: 30px;" type="submit" >Mark as Complete</button>
+    <% } else { %>
+    <button class="button" style="width: 150px; margin-right: 10px; height: 30px;" >Completed</button>
+    <% } %>
     </div>
     </form>
     </div>

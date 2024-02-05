@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-const { AllCourses, Pages, Members,Enroll } = require("./models");
+const { AllCourses, Pages, Members,Enroll,Mark } = require("./models");
 var csrf = require("tiny-csrf");
 var cookieParser = require("cookie-parser");
 app.use(cookieParser("shh! some secret string"));
@@ -94,7 +94,7 @@ app.get('/', function (request, response) {
   })
 
 
-app.get('/home', async(request, response)=> {
+app.get('/home', connectEnsure.ensureLoggedIn() ,async(request, response)=> {
     const courses =await AllCourses.getcourses();
     const number =await Enroll.getnumber();
     console.log(request.user.role)
@@ -108,11 +108,11 @@ app.get('/home', async(request, response)=> {
     response.render("home",{courses:courses,number:map,enrolled:enrolled,user:request.user.firstName,role:request.user.role,csrfToken: request.csrfToken()})
   })
 
-app.get("/createcourse",  (request,response)=>{
+app.get("/createcourse",connectEnsure.ensureLoggedIn() ,  (request,response)=>{
     response.render("course",{csrfToken: request.csrfToken()});
 })
 
-app.post("/course",async (request,response)=>{
+app.post("/course", connectEnsure.ensureLoggedIn() ,async (request,response)=>{
     const cname=request.body.coursename;
     const chapters = await AllCourses.getchapters(cname,request.user.firstName);
     
@@ -126,12 +126,12 @@ app.post("/course",async (request,response)=>{
 
 
 
-app.post("/chapter",  (request,response)=>{
+app.post("/chapter",connectEnsure.ensureLoggedIn() ,  (request,response)=>{
     const cname=request.body.coursename;
     response.render("chapter",{coursename:cname,csrfToken: request.csrfToken()});
 })
 
-app.post("/chapters", async (request,response)=>{
+app.post("/chapters",connectEnsure.ensureLoggedIn() , async (request,response)=>{
     const cname=request.body.coursename;
     const chname=request.body.chaptername;
     const des = request.body.description;
@@ -153,7 +153,7 @@ app.post("/chapters", async (request,response)=>{
     response.render("createpage",{coursename:cname,chaptername:chname,pagelist:pagelist,csrfToken: request.csrfToken()})
 })
 
-app.post("/chapters1", async (request,response)=>{
+app.post("/chapters1",connectEnsure.ensureLoggedIn() , async (request,response)=>{
     const cname=request.body.coursename;
     const chname=request.body.chaptername;
     const pagelist =await Pages.getpages(cname,chname);
@@ -161,14 +161,14 @@ app.post("/chapters1", async (request,response)=>{
     response.render("createpage",{coursename:cname,chaptername:chname,pagelist:pagelist,csrfToken: request.csrfToken()})
 })
 
-app.post("/page", async (request,response)=>{
+app.post("/page",connectEnsure.ensureLoggedIn() , async (request,response)=>{
     const cname=request.body.coursename;
     const chname=request.body.chaptername;
     const chapters = await AllCourses.getchapters(cname,request.user.firstName);
     response.render("page",{coursename:cname,chapters,chaptername:chname,csrfToken: request.csrfToken()});
 })
 
-app.post("/show", async(request,response)=>{
+app.post("/show",connectEnsure.ensureLoggedIn() , async(request,response)=>{
     
     try{
         const page = await Pages.create({
@@ -237,7 +237,7 @@ app.post(
     });
   });
 
-  app.post("/enroll", async(request,response)=>{
+  app.post("/enroll",connectEnsure.ensureLoggedIn() , async(request,response)=>{
     const enrollstatus = await Enroll.getenrollstatus(request.user.id,request.body.coursename,request.body.author)
     console.log(enrollstatus.length)
     if(enrollstatus.length !=0){
@@ -262,7 +262,7 @@ app.post(
   }
   })
 
-  app.post("/viewdetails", async(request,response)=>{
+  app.post("/viewdetails",connectEnsure.ensureLoggedIn() , async(request,response)=>{
     const chapters = await AllCourses.getchapters(request.body.coursename,request.body.author);
     const enrollstatus = await Enroll.getenrollstatus(request.user.id,request.body.coursename,request.body.author)
     const number =await Enroll.getnumber();
@@ -274,7 +274,7 @@ app.post(
 
   })
 
-  app.post("/enrolling", async(request,response)=>{
+  app.post("/enrolling",connectEnsure.ensureLoggedIn() , async(request,response)=>{
     const chapters = await AllCourses.getchapters(request.body.coursename,request.body.author);
     const enroll = await Enroll.create({
       userid:request.user.id,
@@ -293,25 +293,26 @@ app.post(
 
   })
 
-  app.post("/pageslist",async(request,response)=>{
+  app.post("/pageslist",connectEnsure.ensureLoggedIn() ,async(request,response)=>{
     const pagelist =await Pages.getpages(request.body.coursename,request.body.chapter);
     const des = await AllCourses.getdes(request.body.coursename,request.body.chapter);
     response.render("readpage",{coursename:request.body.coursename,author:request.body.author,chapter:request.body.chapter,pagelist:pagelist,des:des.chapterdescription,csrfToken: request.csrfToken()})
 
   })
 
-  app.post("/pageview",async(request,response)=>{
+  app.post("/pageview",connectEnsure.ensureLoggedIn() ,async(request,response)=>{
     const page = await Pages.getpage(request.body.page,request.body.coursename,request.body.chapter)
+    const status = await Mark.getstatus(request.user.id,request.body.coursename,request.body.chapter,request.body.author,request.body.page)
     const pagelist =await Pages.getpages(request.body.coursename,request.body.chapter);
     for(let i=0;i<pagelist.length;i++){
       if(pagelist[i].pagename==request.body.page){
         if(i<pagelist.length-1){
         console.log(pagelist[i+1].pagename)
-        response.render("pageview",{coursename:request.body.coursename,author:request.body.author,chapter:request.body.chapter,page:page,nextpage:pagelist[i+1].pagename,csrfToken: request.csrfToken()})
+        response.render("pageview",{coursename:request.body.coursename,author:request.body.author,status:status,chapter:request.body.chapter,page:page,nextpage:pagelist[i+1].pagename,csrfToken: request.csrfToken()})
         break;
       }
       else{
-        response.render("lastpage",{coursename:request.body.coursename,author:request.body.author,chapter:request.body.chapter,page:page,csrfToken: request.csrfToken()})
+        response.render("lastpage",{coursename:request.body.coursename,author:request.body.author,status:status,chapter:request.body.chapter,page:page,csrfToken: request.csrfToken()})
       }
     }
     }
@@ -319,17 +320,16 @@ app.post(
     
   })
 
-  app.get("/changepasswordpage",async(request,response)=>{
+  app.get("/changepasswordpage",connectEnsure.ensureLoggedIn() ,async(request,response)=>{
     response.render("changepassword",{csrfToken: request.csrfToken()})
   })
 
-  app.post("/changepassword",async(request,response)=>{
+  app.post("/changepassword",connectEnsure.ensureLoggedIn() ,async(request,response)=>{
     const check = await bcrypt.compare(request.body.currentpassword,request.user.password);
     if(check){
       if(request.body.newpassword==request.body.comfirmpassword){
        const hashed=await bcrypt.hash(request.body.newpassword,saltRounds);
        await Members.update({password:hashed},{where:{id:request.user.id}})
-       console.log("ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp")
     const courses =await AllCourses.getcourses();
     const number =await Enroll.getnumber();
     console.log(request.user.role)
@@ -343,5 +343,43 @@ app.post(
       }
     }
   })
+
+app.post("/mark",connectEnsure.ensureLoggedIn() ,async(request,response)=>{
+  try{
+    const markas = await Mark.create({
+      userid:request.user.id,
+      coursename:request.body.coursename,
+      chapter:request.body.chapter,
+      author:request.body.author,
+      pagename:request.body.page
+    })
+
+    const page = await Pages.getpage(request.body.page,request.body.coursename,request.body.chapter)
+    const status = await Mark.getstatus(request.user.id,request.body.coursename,request.body.chapter,request.body.author,request.body.page)
+    console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP")
+    console.log(status.length)
+    
+    const pagelist =await Pages.getpages(request.body.coursename,request.body.chapter);
+    console.log(pagelist)
+    for(let i=0;i<pagelist.length;i++){
+      if(pagelist[i].pagename==request.body.page){
+        if(i<pagelist.length-1){
+        console.log(pagelist[i+1].pagename)
+        console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP")
+        response.render("pageview",{coursename:request.body.coursename,author:request.body.author,status:status,chapter:request.body.chapter,page:page,nextpage:pagelist[i+1].pagename,csrfToken: request.csrfToken()})
+        break;
+      }
+      else{
+        response.render("lastpage",{coursename:request.body.coursename,author:request.body.author,status:status,chapter:request.body.chapter,page:page,csrfToken: request.csrfToken()})
+      }
+    }
+    }
+    console.log(page)
+    
+  }
+  catch(error){
+    console.log(error)
+  }
+})
 
 module.exports=app;

@@ -25,7 +25,7 @@
         <input type="hidden" name="chaptername" value="<%= chaptername %>"/>
         <label for="pagetitle" class="label">Title :</label>
         <div>
-        <input class="input" type="text" name="pagetitle"/>
+        <input class="input" type="text" name="pagetitle" required/>
     </div>
         <div>
         <p class="label">Chapter : </p>
@@ -37,7 +37,7 @@
           </select>
         </div>
         <p class="label">Content :</p>
-        <textarea contenteditable="true" class="content" name="content"></textarea>
+        <textarea contenteditable="true" class="content" name="content" required></textarea>
         <br>
         <button class="button" type="submit">create</button>
     </form>
