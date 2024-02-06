@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({where:{coursename,chaptername}})
     }
 
+    static getpagescount(coursename){
+      return this.findAll({where:{coursename}})
+    }
+
+
     static getpage(pagename,coursename,chaptername){
       return this.findOne({where:{pagename,coursename,chaptername}})
     }

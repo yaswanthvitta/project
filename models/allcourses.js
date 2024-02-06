@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({where:{coursename,author}});
     }
 
+    static getmycourses(author){
+      return this.findAll({where:{author},group:['coursename','author'],attributes: ['coursename','author'],});
+    }
+
     static getcourses(){
       return this.findAll({
         attributes: ['coursename','author'],

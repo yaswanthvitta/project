@@ -12,7 +12,7 @@
     <div class="linkback">
         <a href="/home" class="link">Home</a>
     </div>
-    <h1 class="heading">My Courses</h1>
+    <h1 class="heading">My Report</h1>
     <div class="" style="display: flex;flex-direction: row;">
         <% for(let i=0;i< enrolled.length; i++) { %>
         <form action="/viewdetails" method="post">
@@ -23,7 +23,7 @@
             <h1 class="head"><%= enrolled[i].coursename %></h1>
             <div class="" style="display:flex; flex-direction: row; margin-left: 20px;">
              <div style="width: 170px;">
-             <h1 class="author" ><%= enrolled[i].author %></h1>
+             <h1 class="author" >number of students enrolled: <%= mynumber[enrolled[i].coursename] %></h1>
              </div>
             </div>
          </div>

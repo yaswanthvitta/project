@@ -105,7 +105,35 @@ app.get('/home', connectEnsure.ensureLoggedIn() ,async(request, response)=> {
     }
     console.log(map)
     const enrolled=await Enroll.getenrolled(request.user.id);
-    response.render("home",{courses:courses,number:map,enrolled:enrolled,user:request.user.firstName,role:request.user.role,csrfToken: request.csrfToken()})
+    let c =0
+    const hash={}
+    for(let i=0;i<enrolled.length;i++){
+      const p=await AllCourses.getchapters(enrolled[i].coursename,enrolled[i].author)
+      for(let j=0;j<p.length;j++){
+        const x= await Pages.getpages(p[j].coursename,p[j].chapter)
+        if(x.length==0){
+          c=c+0
+        }
+        else{
+          c=c+x.length
+        }
+        
+      }
+      hash[enrolled[i].coursename+enrolled[i].author]=c
+      c=0
+    }
+    let x=0
+    for(let i=0;i<enrolled.length;i++){
+      const d =await Mark.getpagescount(request.user.id,enrolled[i].coursename,enrolled[i].author)
+      if(d.length==0){
+        x=0
+      }
+      else{
+        x=d.length
+      }
+      hash[enrolled[i].coursename+enrolled[i].author]=Math.round(x/hash[enrolled[i].coursename+enrolled[i].author]*100)
+    }
+    response.render("home",{courses:courses,number:map,enrolled:enrolled,user:request.user.firstName,role:request.user.role,hash:hash,csrfToken: request.csrfToken()})
   })
 
 app.get("/createcourse",connectEnsure.ensureLoggedIn() ,  (request,response)=>{
@@ -339,7 +367,24 @@ app.post(
     }
     console.log(map)
     const enrolled=await Enroll.getenrolled(request.user.id);
-    response.render("home",{courses:courses,number:map,enrolled:enrolled,user:request.user.firstName,role:request.user.role,csrfToken: request.csrfToken()})
+    let c =0
+    const hash={}
+    for(let i=0;i<enrolled.length;i++){
+      const p=await AllCourses.getchapters(enrolled[i].coursename,enrolled[i].author)
+      for(let j=0;j<p.length;j++){
+        const x= await Pages.getpages(p[j].coursename,p[j].chapter)
+        c=c+x.length
+      }
+      hash[enrolled[i].coursename+enrolled[i].author]=c
+      c=0
+    }
+    let x=0
+    for(let i=0;i<enrolled.length;i++){
+      const d =await Mark.getpagescount(request.user.id,enrolled[i].coursename,enrolled[i].author)
+      x=d.length
+      hash[enrolled[i].coursename+enrolled[i].author]=Math.round(x/hash[enrolled[i].coursename+enrolled[i].author]*100)
+    }
+    response.render("home",{courses:courses,number:map,enrolled:enrolled,user:request.user.firstName,role:request.user.role,hash:hash,csrfToken: request.csrfToken()})
       }
     }
   })
@@ -381,5 +426,29 @@ app.post("/mark",connectEnsure.ensureLoggedIn() ,async(request,response)=>{
     console.log(error)
   }
 })
+
+
+app.get("/mycourses",async(request,response)=>{
+  const auth = await AllCourses.getmycourses(request.user.firstName)
+  response.render("mycourses",{enrolled:auth,csrfToken: request.csrfToken()})
+})
+
+app.get("/myReport",async(request,response)=>{
+  const k={}
+  const auth = await AllCourses.getmycourses(request.user.firstName)
+  for(let i=0;i<auth.length;i++){
+    const d= await Enroll.getmynumber(auth[i].coursename)
+    if(d==[]){
+      k[auth[i].coursename]=0
+    }
+    else{
+      k[auth[i].coursename]=d.length
+    }
+    
+  }
+  console.log(k)
+  response.render("myreport",{enrolled:auth,mynumber:k,csrfToken: request.csrfToken()})
+})
+
 
 module.exports=app;

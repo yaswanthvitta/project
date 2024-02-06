@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({where:{userid,coursename,chapter,author,pagename}})
     }
 
+    static getpagescount(userid,coursename,author){
+      return this.findAll({where:{userid,coursename,author}})
+    }
+
   }
   Mark.init({
     userid: DataTypes.INTEGER,

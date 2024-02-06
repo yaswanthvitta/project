@@ -23,8 +23,8 @@
         <div  style="display:flex; flex-direction: row; justify-content: center; width: 400px; height: 40pxpx;">
          <button class="cardbutton" style="justify-content: center; background-color:  rgba(128, 128, 128, 0.37);" type="submit">Continue</button>
         </div>
-        <div style="display:flex; flex-direction: row; justify-content: center;  width: 400px; height: 40px;">
-         <button class="cardbutton"  onclick="enrolling(this)" data="<%= courses[i].coursename %>">Completed 0%</button>
+        <div style="display:flex; flex-direction: row; justify-content: center;  width: 500px; height: 40px;">
+         <p class="cardbutton"  data="<%= courses[i].coursename %>">Completed <%= hash[enrolled[i].coursename+enrolled[i].author] %> %</p>
          </div>
      </div>
         </div>
