@@ -435,10 +435,11 @@ app.get("/mycourses",async(request,response)=>{
 
 app.get("/myReport",async(request,response)=>{
   const k={}
-  const auth = await AllCourses.getmycourses(request.user.firstName)
+  const auth = await AllCourses.getcourses()
   for(let i=0;i<auth.length;i++){
     const d= await Enroll.getmynumber(auth[i].coursename)
-    if(d==[]){
+    console.log(d.length,"pppppppppppppppppppppppppppppppppppppppp")
+    if(d.length==0){
       k[auth[i].coursename]=0
     }
     else{
