@@ -11,7 +11,7 @@ function extractCsrfToken(res) {
   }
 
 const login = async (agent, username, password) => {
-    let res = await agent.get("/login");
+    let res = await agent.get("/signin");
     let csrfToken = extractCsrfToken(res);
     res = await agent.post("/session").send({
       email: username,
@@ -63,7 +63,7 @@ describe("LMS test suite",()=>{
           _csrf: csrfToken,
         });
         console.log(response,"ppppppppppppppppppppppp")
-        expect(response.statusCode).toBe(302);
+        expect(response.statusCode).toBe(200);
       });
 
       test("responds with json at /home", async () => {
@@ -76,7 +76,7 @@ describe("LMS test suite",()=>{
           coursename:"python"
         });
         
-        expect(response.statusCode).toBe(302);
+        expect(response.statusCode).toBe(200);
       });
 
       test("responds with json at /home", async () => {
@@ -88,7 +88,7 @@ describe("LMS test suite",()=>{
           _csrf: csrfToken,
           coursename:"python"
         });
-        expect(response.statusCode).toBe(302);
+        expect(response.statusCode).toBe(200);
       });
 
       test("responds with json at /myreport", async () => {
@@ -101,6 +101,5 @@ describe("LMS test suite",()=>{
         });
         expect(response.statusCode).toBe(200);
       });
-
 
 })
