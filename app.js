@@ -26,8 +26,7 @@ const { doesNotMatch } = require("assert");
 const { error } = require("console");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
-// const flash = require("connect-flash");
+const flash = require("connect-flash");
 
 app.use(
   session({
@@ -38,11 +37,11 @@ app.use(
   }),
 );
 
-// app.use(flash());
-// app.use(function (request, response, next) {
-//   response.locals.messages = request.flash();
-//   next();
-// });
+app.use(flash());
+app.use(function (request, response, next) {
+  response.locals.messages = request.flash();
+  next();
+});
 
 passport.use(
   new LocalStrategy(
@@ -249,6 +248,7 @@ app.post(
     "/session",
     passport.authenticate("local", {
       failureRedirect: "/signin",
+      failureFlash: true,
     }),
     (request, response) => {
       console.log(request.user);
