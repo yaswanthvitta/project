@@ -15,7 +15,7 @@
     <h1 class="heading">My Courses</h1>
     <div class="" style="display: flex;flex-direction: row;">
         <% for(let i=0;i< enrolled.length; i++) { %>
-        <form action="/viewdetails" method="post">
+        <form action="/course" method="post">
         <input type="hidden" name="coursename" value="<%= enrolled[i].coursename %>" />
         <input type="hidden" name="author" value="<%= enrolled[i].author %>" />
         <input type="hidden" name="_csrf" value="<%= csrfToken %>"/> 
@@ -26,6 +26,11 @@
              <h1 class="author" ><%= enrolled[i].author %></h1>
              </div>
             </div>
+            <div style="display: flex; margin-right: 30px;">
+                <div  style="display:flex; flex-direction: row; justify-content: center; width: 400px; height: 40pxpx;">
+                 <button class="cardbutton" style="justify-content: center; background-color:  rgba(128, 128, 128, 0.37);" type="submit">Edit</button>
+                </div>
+             </div>
          </div>
             </div>
         </form>

@@ -25,7 +25,14 @@
     <% } else { %>
         <ul>
         <% for(let i=0;i< pagelist.length; i++) { %>
-            <li class="list"><%= pagelist[i].pagename %></li>
+            <form action="/seepage" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+                <input type="hidden" type="text" name="chapter" value="<%= chaptername %>" />
+                <input type="hidden" type="text" name="page" value="<%= pagelist[i].pagename %>" />
+
+            <button class="list cardbutton" style="margin-bottom: 20px;"><%= pagelist[i].pagename %></button>
+        </form> 
         <% } %>    
     
         </ul>

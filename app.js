@@ -442,12 +442,17 @@ app.get("/myReport",async(request,response)=>{
       k[auth[i].coursename]=0
     }
     else{
-      k[auth[i].coursename]=d.length
+      k[auth[i].coursename]=d[0].dataValues.studentcount
     }
     
   }
   console.log(k)
   response.render("myreport",{enrolled:auth,mynumber:k,csrfToken: request.csrfToken()})
+})
+
+app.post("/seepage",async (request,response)=>{
+  const page = await Pages.getpage(request.body.page,request.body.coursename,request.body.chapter)
+  response.render("newpage1",{pagename:page.pagename,page: page.content,coursename: page.coursename,chaptername: page.chaptername,csrfToken: request.csrfToken()})
 })
 
 

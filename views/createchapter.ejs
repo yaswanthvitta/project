@@ -20,9 +20,16 @@
         <p class="list">No chapters yet created </p>
     <% } else { %>
         <ul>
+        
         <% for(let i=0;i< chapters.length; i++) { %>
-            <li class="list"><%= chapters[i].chapter %></li>
-        <% } %>    
+            <form action="/chapters1" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+                <input type="hidden" type="text" name="chaptername" value="<%= chapters[i].chapter %>" />
+            <button class="list cardbutton" style="margin-bottom: 20px;"><%= chapters[i].chapter %></button>
+        </form> 
+        <% } %>   
+        
         </ul>
     <% } %>
     <form action="/chapter" method="post" >

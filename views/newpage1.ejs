@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/style.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <title>LMS</title>
+</head>
+<body>
+    <div class="linkback">
+    <a href="/home" class="link">Home</a>
+    <form action="/course" method="post" >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <button class="link" type="submit"><%= coursename %> </button>
+    </form>
+    <form action="/chapters1" method="post" >
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <input type="hidden" type="text" name="coursename" value="<%= coursename %>" />
+        <input type="hidden" type="text" name="chaptername" value="<%= chaptername %>" />
+        <button class="link" type="submit"><%= chaptername %> </button>
+    </form>
+    <p class="link1"><%= pagename %></p>
+    </div>
+    <div class="back">
+    <form action="/chapters1" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input type="hidden" value="<%= coursename %>" name="coursename" />
+    <input type="hidden" type="text" name="chaptername" value="<%= chaptername %>" />
+    <h1 class="heading"><%= pagename %></h1>
+    <p class="contents"><%= page %></p>
+    </form>
+    </div>
+</body>
+</html>
