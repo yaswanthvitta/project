@@ -54,4 +54,53 @@ describe("LMS test suite",()=>{
         expect(res.statusCode).toBe(302);
       });
 
+      test("responds with json at /course", async () => {
+        const agent = request.agent(server);
+        await login(agent, "1@gmail.com", "1");
+        const res = await agent.get("/");
+        const csrfToken = extractCsrfToken(res);
+        const response = await agent.get("/home").send({
+          _csrf: csrfToken,
+        });
+        console.log(response,"ppppppppppppppppppppppp")
+        expect(response.statusCode).toBe(302);
+      });
+
+      test("responds with json at /home", async () => {
+        const agent = request.agent(server);
+        await login(agent, "1@gmail.com", "1");
+        const res = await agent.get("/signin");
+        const csrfToken = extractCsrfToken(res);
+        const response = await agent.get("/home").send({
+          _csrf: csrfToken,
+          coursename:"python"
+        });
+        
+        expect(response.statusCode).toBe(302);
+      });
+
+      test("responds with json at /home", async () => {
+        const agent = request.agent(server);
+        await login(agent, "1@gmail.com", "1");
+        const res = await agent.get("/createcourse");
+        const csrfToken = extractCsrfToken(res);
+        const response = await agent.get("/home").send({
+          _csrf: csrfToken,
+          coursename:"python"
+        });
+        expect(response.statusCode).toBe(302);
+      });
+
+      test("responds with json at /myreport", async () => {
+        const agent = request.agent(server);
+        await login(agent, "1@gmail.com", "1");
+        const res = await agent.get("/home");
+        const csrfToken = extractCsrfToken(res);
+        const response = await agent.get("/myReport").send({
+          _csrf: csrfToken,
+        });
+        expect(response.statusCode).toBe(200);
+      });
+
+
 })
