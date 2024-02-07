@@ -42,27 +42,6 @@
             })
             }  
 
-            function viewdetails(p) {
-            var o =p.getAttribute("data")
-            fetch('/viewdetails',{
-                method: "post",
-                headers: {"Content-Type": "application/json" },
-                body: JSON.stringify({
-                    "_csrf":token,
-                    coursename:o 
-                }),
-            })
-            .then((res) =>{
-                if(res.ok){
-                 
-                }
-            })
-            .catch((err) =>{ 
-                console.log(err)
-            })
-            }  
-
-            
     </script>
 </head>
 <body>
