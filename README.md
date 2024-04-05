@@ -14,7 +14,7 @@ The Learning Management System (LMS) project is developed using Node.js, HTML, C
 
 - **Enrollment Management**: Students can enroll in courses created by educators, gaining access to the content of the chapters they are enrolled in.
 
---**Available and Enrolled courses**:The courses a student is enrolled in are displayed in a separate/dedicated section for easy access and navigation and all the available courses are displayed under the enrolled section
+- **Available and Enrolled courses**:The courses a student is enrolled in are displayed in a separate/dedicated section for easy access and navigation and all the available courses are displayed under the enrolled section
 
 ## Technologies Used 💻
 
